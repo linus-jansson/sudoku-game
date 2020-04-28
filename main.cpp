@@ -59,7 +59,7 @@ matrix generateGrid()
                 // displayVector(soduko);
             }
             
-            std::cout << x << "," << y << " done\n";
+            // std::cout << x << "," << y << " done\n";
 
             soduko[y][x] =  n;
     
@@ -73,6 +73,7 @@ matrix generateGrid()
 // Display a Vector in Grid / Matrix format
 void displayVector(const matrix &grid)
 {
+    int rowCount = 1;
     for (auto y : grid)
     {
         for (auto n : y)
@@ -167,35 +168,37 @@ int main()
 {
     srand (time(NULL));
 
-    std::vector<std::vector<int>> grid 
+    std::vector<std::vector<int>> testBoard 
     {
-        {5, 3, 0, 0, 7, 0, 0, 0, 0}, 
-        {6, 0, 0, 1, 9, 5, 0, 0, 0}, 
-        {0, 9, 8, 0, 0, 0, 0, 6, 0}, 
-        {8, 0, 0, 0, 6, 0, 0, 0, 3}, 
-        {4, 0, 0, 8, 0, 3, 0, 0, 1}, 
-        {7, 0, 0, 0, 2, 0, 0, 0, 6}, 
-        {0, 6, 0, 0, 0, 0, 2, 8, 0}, 
-        {0, 0, 0, 4, 1, 9, 0, 0, 5}, 
-        {0, 0, 0, 0, 8, 0, 0, 7, 9}
+        {5, 3, 0,   0, 7, 0,   0, 0, 0}, 
+        {6, 0, 0,   1, 9, 5,   0, 0, 0}, 
+        {0, 9, 8,   0, 0, 0,   0, 6, 0}, 
+
+        {8, 0, 0,   0, 6, 0,   0, 0, 3}, 
+        {4, 0, 0,   8, 0, 3,   0, 0, 1}, 
+        {7, 0, 0,   0, 2, 0,   0, 0, 6}, 
+
+        {0, 6, 0,   0, 0, 0,   2, 8, 0}, 
+        {0, 0, 0,   4, 1, 9,   0, 0, 5}, 
+        {0, 0, 0,   0, 8, 0,   0, 7, 9}
     };
 
-
-    
     // std::cout << solve(grid) << std::endl;
 
-    // displayVector(grid);
+    std::cout << "Before solved: \n";
+    displayVector(testBoard);
     
-    // if (solve(grid))
-    // {
-    //     displayVector(grid);
-    // }
-    // else
-    // {
-    //     std::cout << "No solution.\n";
-    // }
+    if (solve(testBoard))
+    {
+        std::cout << "Solved: \n";
+        displayVector(testBoard);
+    }
+    else
+    {
+        std::cout << "No solution.\n";
+    }
     
-    displayVector(generateGrid());
+    // displayVector(generateGrid());
     
     // map();
     // std::cout << grid() << std::endl;
