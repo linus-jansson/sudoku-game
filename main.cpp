@@ -2,47 +2,101 @@
 #include <vector>
 #include <cmath>
 #include <time.h>  
+#include <algorithm>
+#include <random>
+#include <iterator>
 
 typedef std::vector<int> rad;
 typedef std::vector<rad> matrix;
 
 int randomNumber(int min, int max);
+matrix shuffleMatrix(std::vector<std::vector<int>> &vector);
 matrix generateGrid();
-void displayVector(const std::vector<std::vector<int>> & grid);
-bool possible(const int & x, const int & y, const int & n, const std::vector<std::vector<int>> & grid);
-bool solve(std::vector<std::vector<int>> & grid);
+void displayVector(const std::vector<std::vector<int>> &grid);
+bool possible(const int & x, const int & y, const int & n, const std::vector<std::vector<int>> &grid);
+bool solve(std::vector<std::vector<int>> &grid);
+
 
 int randomNumber(int min, int max)
 {
-    return rand() % max + min ;
+    static std::random_device rd;
+    static std::mt19937 eng(rd());
+    std::uniform_int_distribution<int> distribution(min,max);
+    auto n = distribution(eng);
+    //std::cout << "randomNumber("<<min<<","<<max<<") = " << n << std::endl;
+    return n ;
 }
+
+
+matrix shuffleMatrix(matrix &vector)
+{
+    static std::random_device rd;
+    std::mt19937 g(rd());
+
+    std::shuffle(vector.begin(), vector.end(), g);
+
+    return vector;
+}
+
 
 // Generate the soduko board ( W.I.P )
 matrix generateGrid()
 {
     int size = 9;
+    int n;
     
     matrix soduko(size, rad(size, 0));
 
-    for (int y = 0; y < 9; y++)
-    {
-        for (int x = 0; x < 9; x++)
-        {
-            int n = randomNumber(1, 9);
-            while( ! possible(x, y, n, soduko) )
-            {
-                n = randomNumber(1, 9);
-                displayVector(soduko);
-            }
-            
-            // std::cout << x << "," << y << " done\n";
+    // for (int y = 0; y < 9; y++)
+    // {
+    //     for (int x = 0; x < 9; x++)
+    //     {
+    //         solve(soduko);
 
-            soduko[y][x] =  n;
+    //         // n = randomNumber(1, 9);
+    //         // if( possible(x, y, n, soduko) )
+    //         // {
+    //         //     soduko[y][x] =  n;
+    //         //     // displayVector(soduko);
+    //         // }
+    //         // else
+    //         // {
+    //         //     soduko[y][x] = 0;
+    //         // }
+    //         // // while( ! possible(x, y, n, soduko))
+    //         // // {
+    //         // //     soduko[y][x] = randomNumber(1, 9);
+    //         // // }
+            
+    //         // // std::cout << x << "," << y << " done\n";
+
+            
     
+    //     }
+        
+    // }
+
+    for (int i = 0; i < 17; i++)
+    {
+        int x = randomNumber(0, 8);
+        int y = randomNumber(0, 8);
+
+        while( soduko[y][x] != 0 )
+        {
+            x = randomNumber(0, 8);
+            y = randomNumber(0, 8);
         }
+
+        int n = randomNumber(1, 9);
+        while( !possible(x, y, n, soduko) )
+        {
+            n = randomNumber(1, 9);
+        }
+
+        soduko[y][x] = n;
         
     }
-
+    
     return soduko;
 }
 
@@ -54,7 +108,8 @@ void displayVector(const matrix &grid)
     {
         for (auto n : y)
         {
-            std::cout << n << " ";
+            std::cout << (n > 0 ? std::to_string(n) : "_") << " ";
+
         }
         std::cout << std::endl;
     }
@@ -100,7 +155,7 @@ bool possible(const int &x, const int &y, const int &n, const matrix &grid)
 }
 
 // Recursive function that solves the Matrix.
-bool solve(std::vector<std::vector<int>> & grid)
+bool solve(matrix &grid)
 {
     for (int y = 0; y < 9; y++)
     {
@@ -144,7 +199,7 @@ int main()
 {
     srand (time(NULL));
 
-    std::vector<std::vector<int>> testBoard 
+    matrix testBoard 
     {
         {5, 3, 0,   0, 7, 0,   0, 0, 0}, 
         {6, 0, 0,   1, 9, 5,   0, 0, 0}, 
@@ -160,21 +215,26 @@ int main()
     };
 
     // std::cout << solve(grid) << std::endl;
+    matrix testboard1 = generateGrid();
 
+    // shuffleMatrix(testboard1);
+
+    // displayVector(testboard1);
+    
     std::cout << "Before solved: \n";
-    displayVector(testBoard);
+    displayVector(testboard1);
     
-    // if (solve(testBoard))
-    // {
-    //     std::cout << "Solved: \n";
-    //     displayVector(testBoard);
-    // }
-    // else
-    // {
-    //     std::cout << "No solution.\n";
-    // }
+    if (solve(testboard1))
+    {
+        std::cout << "Solved: \n";
+        displayVector(testboard1);
+    }
+    else
+    {
+        std::cout << "No solution.\n";
+    }
     
-    displayVector(generateGrid());
+    
     
     // map();
     // std::cout << grid() << std::endl;
