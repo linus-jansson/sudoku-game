@@ -21,9 +21,10 @@ int randomNumber(int min, int max)
 {
     static std::random_device rd;
     static std::mt19937 eng(rd());
-    std::uniform_int_distribution<int> distribution(min,max);
+    std::uniform_int_distribution<int> distribution(min, max);
     auto n = distribution(eng);
-    //std::cout << "randomNumber("<<min<<","<<max<<") = " << n << std::endl;
+        // Check n
+        //std::cout << "randomNumber("<<min<<","<<max<<") = " << n << std::endl;
     return n ;
 }
 
@@ -43,38 +44,8 @@ matrix shuffleMatrix(matrix &vector)
 matrix generateGrid()
 {
     int size = 9;
-    int n;
     
     matrix soduko(size, rad(size, 0));
-
-    // for (int y = 0; y < 9; y++)
-    // {
-    //     for (int x = 0; x < 9; x++)
-    //     {
-    //         solve(soduko);
-
-    //         // n = randomNumber(1, 9);
-    //         // if( possible(x, y, n, soduko) )
-    //         // {
-    //         //     soduko[y][x] =  n;
-    //         //     // displayVector(soduko);
-    //         // }
-    //         // else
-    //         // {
-    //         //     soduko[y][x] = 0;
-    //         // }
-    //         // // while( ! possible(x, y, n, soduko))
-    //         // // {
-    //         // //     soduko[y][x] = randomNumber(1, 9);
-    //         // // }
-            
-    //         // // std::cout << x << "," << y << " done\n";
-
-            
-    
-    //     }
-        
-    // }
 
     for (int i = 0; i < 17; i++)
     {
@@ -178,8 +149,7 @@ bool solve(matrix &grid)
                         {
                             grid[y][x] = 0;                            
                         }
-                        
-                        // return;
+
 
                     } 
 
@@ -197,7 +167,6 @@ bool solve(matrix &grid)
 
 int main()
 {
-    srand (time(NULL));
 
     matrix testBoard 
     {
@@ -215,29 +184,24 @@ int main()
     };
 
     // std::cout << solve(grid) << std::endl;
-    matrix testboard1 = generateGrid();
+    matrix grid = generateGrid();
 
     // shuffleMatrix(testboard1);
 
     // displayVector(testboard1);
     
     std::cout << "Before solved: \n";
-    displayVector(testboard1);
+    displayVector(grid);
     
-    if (solve(testboard1))
+    if (solve(grid))
     {
         std::cout << "Solved: \n";
-        displayVector(testboard1);
+        displayVector(grid);
     }
     else
     {
         std::cout << "No solution.\n";
     }
-    
-    
-    
-    // map();
-    // std::cout << grid() << std::endl;
 
     return 0;
 }
