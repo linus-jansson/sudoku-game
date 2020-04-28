@@ -6,40 +6,16 @@
 typedef std::vector<int> rad;
 typedef std::vector<rad> matrix;
 
+int randomNumber(int min, int max);
 matrix generateGrid();
 void displayVector(const std::vector<std::vector<int>> & grid);
 bool possible(const int & x, const int & y, const int & n, const std::vector<std::vector<int>> & grid);
 bool solve(std::vector<std::vector<int>> & grid);
 
-// void map(/*int size*/)
-// {
-//     int size = 9;
-//     // int x, y;
-//     typedef std::vector<int> rad;
-//     typedef std::vector<rad> matrix;
-
-
-//     matrix soduko(size,rad(size,(rand() % 9 + 1 )));
-//     //int array[sizeX][sizeY] = {0};
-    
-    
-
-//     for ( auto r : soduko )
-//     {
-//         for( auto n : r)
-//         {
-
-//             // if (array[x][y] == 0)
-//             // {
-//             //     array[x][y] = 1;
-//             // }
-//             std::cout << n << " ";
-
-//         } 
-//         std::cout << std::endl;
-//     }
-
-// }
+int randomNumber(int min, int max)
+{
+    return rand() % max + min ;
+}
 
 // Generate the soduko board ( W.I.P )
 matrix generateGrid()
@@ -52,11 +28,11 @@ matrix generateGrid()
     {
         for (int x = 0; x < 9; x++)
         {
-            int n = rand() % 9 + 1 ;
-            while( ! possible(x, y, n, soduko))
+            int n = randomNumber(1, 9);
+            while( ! possible(x, y, n, soduko) )
             {
-                n = rand() % 9 + 1 ;
-                // displayVector(soduko);
+                n = randomNumber(1, 9);
+                displayVector(soduko);
             }
             
             // std::cout << x << "," << y << " done\n";
@@ -188,17 +164,17 @@ int main()
     std::cout << "Before solved: \n";
     displayVector(testBoard);
     
-    if (solve(testBoard))
-    {
-        std::cout << "Solved: \n";
-        displayVector(testBoard);
-    }
-    else
-    {
-        std::cout << "No solution.\n";
-    }
+    // if (solve(testBoard))
+    // {
+    //     std::cout << "Solved: \n";
+    //     displayVector(testBoard);
+    // }
+    // else
+    // {
+    //     std::cout << "No solution.\n";
+    // }
     
-    // displayVector(generateGrid());
+    displayVector(generateGrid());
     
     // map();
     // std::cout << grid() << std::endl;
