@@ -93,6 +93,7 @@ public:
 
     }
 
+    // Displays the grid in a sudoku board layout
     void display()
     {
         int rowCount = 0;
@@ -129,17 +130,22 @@ public:
         
     }
 
+    matrix getGrid()
+    {
+        return grid;
+    }
+
     // Can maybe be used for something.
     // Was a early try to create a function that generates the Sudoku Board
     /*
-        std::vector<std::vector<int>> shuffleMatrix(std::vector<std::vector<int>> &vector)
+        matrix shuffleMatrix()
         {
             static std::random_device rd;
             std::mt19937 g(rd());
 
-            std::shuffle(vector.begin(), vector.end(), g);
+            std::shuffle(grid.begin(), grid.end(), g);
 
-            return vector;
+            return grid;
         }
     */
 
