@@ -4,6 +4,7 @@
 #include <random>
 #include <iterator>
 
+
 #include "Sudoku.cpp"
 
 // typedef std::vector<int> rad;
@@ -22,12 +23,14 @@ int main()
     int menuOption;
     char option;
     bool running = true;
+    bool editing;
 
     do
     {   
         // clear();
         std::cout << "What do you want to do?"
                   << "\n1. Generate a Sudoku board"
+                //   << "\n2. Fill in empty board"
                   << "\n0. Exit\n";
         std::cin >> menuOption;
 
@@ -71,7 +74,43 @@ int main()
 
 
             break;
-
+        // case 2:
+        //     editing = true;
+        //     s.emptyGrid();
+            
+        //     char editInput;
+        //     while(editing)
+        //     {
+        //         std::cout << "Editing \n";
+        //         std::cin >> editInput;
+        //         s.display();
+        //         switch (editInput)
+        //         {
+        //         case 'q':
+        //         case 'Q':
+        //         case 's':
+        //         case 'S':
+        //             // Saves the current grid as it is
+        //             editing = false;
+        //             break;
+        //         case 'A':
+        //         case 'a':
+        //             // Moves selection to the left
+        //             break;
+                
+        //         case 'D':
+        //         case 'd':
+        //             // Moves selection to the right
+        //             break;
+                    
+        //         default:
+                    
+        //             break;
+        //         }
+        //     }
+        //     continue;
+            
+            
         case 0:
             running = false;
 
